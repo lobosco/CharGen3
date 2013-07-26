@@ -1,7 +1,31 @@
+/*
+Character Generator 3.0 - a simple Generator for Character Sheets compliant with Version 3.0 of the Amuntalon Rules
+
+Copyright (C) 2013 Wolfgang Knopki
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+
+*/
+
+import java.awt.CardLayout;
 import java.awt.event.*;
 
+import javax.swing.JPanel;
+
 public class XmlActionListener implements ActionListener {
-//initialisation of charsheet
+/*//initialisation of charsheet
 	 int a = 50;
      int b = 5;
      int c = 20;
@@ -29,14 +53,33 @@ public class XmlActionListener implements ActionListener {
      String y = "Religion";
      String z = "dritte Hand";
      String ar = "aphatisch";
-	
-     CharacterSheet charsheet = new CharacterSheet(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ar);
-//declaration
-	XmlActionListener(CharacterSheet charsheet){
+	*/
+	final String QUIT = "QUIT";
+	final String SHOW = "SHOW";
+	final String NEXT = "NEXT";
+	final String PREVIOUS = "PREVIOUS";
+	final String HTML = "HTML";
+    CharacterSheet charsheet;// = new CharacterSheet(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ar);
+    JPanel steps;
+     //declaration
+	XmlActionListener(CharacterSheet charsheet, JPanel steps){
 	this.charsheet = charsheet;
+	this.steps = steps;
 }
 //performance of action
 	public void actionPerformed(ActionEvent e){
-		charsheet.exportAsXML();
+	CardLayout c1 = (CardLayout) (steps.getLayout());
+	String cmd = e.getActionCommand();
+	if(cmd.equals(HTML)){
+		charsheet.exportAsHTML();
+	}else if (cmd.equals(NEXT)){
+		c1.next(steps);
+	}else if(cmd.equals(PREVIOUS)){
+		c1.previous(steps);
+	}else if(cmd.equals(SHOW)){
+		charsheet.show();
+	}else if(cmd.equals(QUIT)){
+		System.exit(0);
+	}
 	}
 }
