@@ -20,9 +20,8 @@ Copyright (C) 2013 Wolfgang Knopki
 */
 
 import java.awt.CardLayout;
+import javax.swing.*;
 import java.awt.event.*;
-
-import javax.swing.JPanel;
 
 public class XmlActionListener implements ActionListener {
 /*//initialisation of charsheet
@@ -61,25 +60,54 @@ public class XmlActionListener implements ActionListener {
 	final String HTML = "HTML";
     CharacterSheet charsheet;// = new CharacterSheet(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ar);
     JPanel steps;
+    JComboBox combo;
+    JTextField text;
+    
      //declaration
 	XmlActionListener(CharacterSheet charsheet, JPanel steps){
 	this.charsheet = charsheet;
 	this.steps = steps;
 }
+	XmlActionListener(CharacterSheet charsheet, JComboBox combo){
+		this.charsheet = charsheet;
+		this.combo = combo;
+	}
+	XmlActionListener(CharacterSheet charsheet, JTextField text){
+		this.charsheet = charsheet;
+		this.text = text;
+	}
 //performance of action
 	public void actionPerformed(ActionEvent e){
-	CardLayout c1 = (CardLayout) (steps.getLayout());
 	String cmd = e.getActionCommand();
 	if(cmd.equals(HTML)){
+		CardLayout c1 = (CardLayout) (steps.getLayout());
 		charsheet.exportAsHTML();
 	}else if (cmd.equals(NEXT)){
+		CardLayout c1 = (CardLayout) (steps.getLayout());
 		c1.next(steps);
 	}else if(cmd.equals(PREVIOUS)){
+		CardLayout c1 = (CardLayout) (steps.getLayout());
 		c1.previous(steps);
 	}else if(cmd.equals(SHOW)){
+		CardLayout c1 = (CardLayout) (steps.getLayout());
 		charsheet.show();
 	}else if(cmd.equals(QUIT)){
 		System.exit(0);
+	}else if(cmd.equals("RACE")){
+		charsheet.Race = combo.getSelectedItem().toString(); 
+	}else if(cmd.equals("CULTURE")){
+		charsheet.Culture = combo.getSelectedItem().toString(); 
+	}else if(cmd.equals("ARCHETYPE")){
+		charsheet.Archetype = combo.getSelectedItem().toString(); 
+	}else if(cmd.equals("RELIGION")){
+		charsheet.Religion = combo.getSelectedItem().toString(); 
+	}else if(cmd.equals("GENDER")){
+		charsheet.Gender = combo.getSelectedItem().toString(); 
+	}else if (cmd.equals("NAME")){
+		charsheet.Name = text.getText();
+	}else if (cmd.equals("AGE")){
+	charsheet.Age = Integer.parseInt(text.getText());	
 	}
+	
 	}
 }

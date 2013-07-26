@@ -25,6 +25,19 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CharacterSheet {
+	
+	//declaring constants
+	final String[] RACELIST = {"Amazone", "Amunier", "Bergzwerg", "Dathure", "Elf", "Gnom", "Grimmtaure", "Halbelf", "Hügelzwerg", "Kobold", "Minotaur", "Nordländer", "Ork", "Taravellaner", "Scantare", "Schattenelf", "Talonier", "Trinide", "Wanure","Zentaur" };
+	final String[] ARCHETYPELIST = {"Magier", "Beschwörer", "Druide", "Nekromant", "Schamane", "Hexendoktor", "Arkanist", "Krieger", "Ritter", "Baphosritter", "Hüter", "Berserker", "Waffenmeister", "Duellant", "Späher", "Jäger", "Waldläufer", "Pirat", "Dieb", "Assassine", "Gaukler", "Scharlatan", "Hexenjäger", "Alchemist", "Drachenjäger", "Kleriker", "Hohepriester", "Inquisitor", "Arzt", "Barde", "Vampir", "Werwolf"};
+	final String[] CULTURELIST = {"Arquill", "Denquill", "Brenland", "Tarek", "Tjam-Wüste", "Wisha Küste", "Tundra", "Bergland", "Fjordland", "Trinidas", "Nebelmarschen", "Sieben Ebenen", "Kristallwüste", "Tortaja und Girada", "Roma", "Dathuria", "Elfen", "Schattenelfen", "Bergzwerge", "Hügelzwerge"};
+	final String[] LANGUAGELIST = {"Moiar", "Bhasa", "Run Mor", "Suara", "Barach", "Draak Huil", "Duwia", "Latanis", "Ingelesa", "Gerunnik", "Aggara"};
+	final String[] TALENTLIST = {};
+	final String[] ALIGNMENTLIST = {"aufopfernd", "neutral", "skrupellos"};
+	final String[] GENDERLIST = {"männlich", "weiblich"};
+	final String[] ABILITYLIST = {"Kochen", "Schreiben", "Rechnen", "Feuer machen", "Malen", "Klettern", "Schwimmen", "Reiten", "Erste Hilfe", "Kräuterkunde", "Schnitzen", "Nähen", "Schmieden", "Bergbau", "Giftherstellung", "Alchemie", "Kürschnern", "Astrologie", "Etikette", "Seefahrt", "Abrichten", "Religion", "Tierkunde", "Gesteinskunde", "Navigation", "Schätzen", "Überreden", "Feilschen", "Gesteinskenntnisse", "Geschichten und Legenden", "Musizieren", "Sprachkenntnisse: Bhasa", "Sprachkenntnisse: Run Mor", "Sprachkenntnisse: Suara", "Sprachkenntnisse: Barach", "Sprachkenntnisse: Draak Huil", "Sprachkenntnisse: Duwia","Sprachkenntnisse: Latanis", "Sprachkenntnisse: Ingelesa","Sprachkenntnisse: Gerunnik", "Sprachkenntnisse: Aggara", "Schleichen", "Stehlen", "Zinken", "Angeln", "Knoten", "Schlösser knacken", "Betören", "Magiedilettant", "Astrale Hand", "Magiewissen"};
+	final String[] RELIGIONLIST = {"Glaube der Zwölf: Aleus","Glaube der Zwölf: Ariasa","Glaube der Zwölf: Baphos","Glaube der Zwölf: Dragana","Glaube der Zwölf: Fyrnur","Glaube der Zwölf: Goran","Glaube der Zwölf: Lynus","Glaube der Zwölf: Maradur","Glaube der Zwölf: Rohmos","Glaube der Zwölf: Rorin","Glaube der Zwölf: Thoran","Glaube der Zwölf: Vita", "Ekadevata", "Sabbadon", "Das Dunkle Auge", "Ular"};
+	final String[] STRENGTHLIST = {"Diplomat", "Logiker", "Optimist", "Muskulös", "Adlige Abstammung", "Akademiker", "Athletisch", "gut aussehend", "gelassen", "Makellos", "gläubig", "gerecht", "berühmt", "auserwählt"};
+	final String[] WEAKNESSLIST = {"Angst", "Habgier", "Sturheit", "schüchtern", "Arroganz", "Einarmig", "Einbeinig", "blind", "fettleibig", "Gesucht", "aggressiv", "stumm", "Sprachfehler", "Pazifist", "depressiv", "emotionslos", "fanatisch"};
  //List of Objects
 	int Hitpoints;
 	int Energy;
@@ -173,7 +186,7 @@ public class CharacterSheet {
 	}
 	
 	public void mainmenu (){
-		final String TEXT = "<html>Herzlich Willkommen zum Charaktergenerator 3.00.<p/> Dieses Programm ist angepasst auf die Version 3.0 des Amuntalon-Regelwerkes.<p/> Bitte folgen Sie den Anweisungen auf dem Bildschirm.<p/><p/>" +
+		final String TEXT = "<html>Herzlich Willkommen zum Charaktergenerator 3.00.<p/> Dieses Programm ist angepasst auf die Version 3.0 des Amuntalon-Regelwerkes.<p/> Dieses Programm dient nur der Ergänzung und kann das Regelwerk nicht ersetzen. <p/> Es ist deshalb angeraten, das Regelbuch griffbereit zu halten.<p/><p/>" +
 				"LICENSE: <p/> Dieses Programm wurde unter der GNU General Public License Version 3 veröffentlicht</html>";
 		//Main Window
         JFrame fi = new JFrame( "Willkommen" );
@@ -263,8 +276,77 @@ public class CharacterSheet {
 		buttons.add(quit);
 		
 		//creating individual subwindows
-		JPanel step1 = new JPanel();
-		step1.add(new JLabel("erster Schritt"));
+		JPanel step1 = new JPanel(new GridBagLayout());
+        GridBagConstraints gcs = new GridBagConstraints();
+		
+        JLabel n = new JLabel("Name:");
+		JTextField name = new JTextField(30);
+		name.setActionCommand("NAME");
+		name.addActionListener(new XmlActionListener(this, name));
+		n.setLabelFor(name);
+		
+		JLabel r = new JLabel("Rasse:");
+		JComboBox race = new JComboBox(RACELIST);
+		race.setActionCommand("RACE");
+		race.addActionListener(new XmlActionListener(this, race));
+		r.setLabelFor(race);
+		
+		JLabel c = new JLabel("Kultur:");
+		JComboBox culture = new JComboBox(CULTURELIST);
+		culture.setActionCommand("CULTURE");
+		culture.addActionListener(new XmlActionListener(this, culture));
+		c.setLabelFor(culture);
+		
+		JLabel a = new JLabel("Archetyp:");
+		JComboBox archetype = new JComboBox(ARCHETYPELIST);
+		archetype.setActionCommand("ARCHETYPE");
+		archetype.addActionListener(new XmlActionListener(this, archetype));
+		a.setLabelFor(archetype);
+		
+		JLabel rel = new JLabel("Religion/ Patron:");
+		JComboBox religion = new JComboBox(RELIGIONLIST);
+		religion.setActionCommand("RELIGION");
+		religion.addActionListener(new XmlActionListener(this, religion));
+		rel.setLabelFor(religion);
+		
+		JLabel gen = new JLabel("Geschlecht:");
+		JComboBox gender = new JComboBox(GENDERLIST);
+		gender.setActionCommand("GENDER");
+		gender.addActionListener(new XmlActionListener(this, gender));
+		gen.setLabelFor(gender);
+		
+		JLabel ag = new JLabel("Alter:"); 
+		JTextField age = new JTextField(5);
+		age.setActionCommand("AGE");
+		age.addActionListener(new XmlActionListener(this, age));
+		ag.setLabelFor(age);
+		
+		JLabel lan = new JLabel("Sprache:");
+		JList language = new JList(LANGUAGELIST);
+		JScrollPane scrolllan = new JScrollPane(language);
+		lan.setLabelFor(language);
+		JButton getstep1 = new JButton("Auswahl übernehmen");
+		getstep1.setActionCommand("STEP1!");
+		//getstep1.addActionListener(new XmlActionListener(this, name, race, culture, archetype, religion, gender, age, language))
+		step1.setLayout(new GridLayout(9,2));
+		
+		step1.add(n);
+		step1.add(name);
+		step1.add(r);
+		step1.add(race);
+		step1.add(c);
+		step1.add(culture);
+		step1.add(a);
+		step1.add(archetype);
+		step1.add(rel);
+		step1.add(religion);
+		step1.add(gen);
+		step1.add(gender);
+		step1.add(ag);
+		step1.add(age);
+		step1.add(lan);
+		step1.add(scrolllan);
+		step1.add(getstep1);
 		
 		JPanel step2 = new JPanel();
 		step2.add(new JLabel("zweiter Schritt"));
