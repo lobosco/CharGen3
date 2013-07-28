@@ -27,8 +27,9 @@ public class Weapon {
      int Block;
      int Value;
      String Material;
+     String AmmoName;
      
-     public Weapon(String Name, int Break, int Attack, int Distance, int Block, int Value, String Material){
+     public Weapon(String Name, int Break, int Attack, int Distance, int Block, int Value, String Material, String AmmoName){
     	 this.Name = Name;
     	 this.Break = Break;
     	 this.Attack = Attack;
@@ -36,6 +37,7 @@ public class Weapon {
     	 this.Block = Block;
     	 this.Value = Value;
     	 this.Material = Material;
+    	 this.AmmoName = AmmoName;
      }
 	
 

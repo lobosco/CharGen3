@@ -62,12 +62,17 @@ public class XmlActionListener implements ActionListener {
     JPanel steps;
     JComboBox combo;
     JTextField text;
-    
+    JButton button;
+    JList list;
      //declaration
 	XmlActionListener(CharacterSheet charsheet, JPanel steps){
 	this.charsheet = charsheet;
 	this.steps = steps;
 }
+	XmlActionListener(CharacterSheet charsheet, JButton button){
+		this.charsheet = charsheet;
+		this.button = button;
+	}
 	XmlActionListener(CharacterSheet charsheet, JComboBox combo){
 		this.charsheet = charsheet;
 		this.combo = combo;
@@ -76,38 +81,223 @@ public class XmlActionListener implements ActionListener {
 		this.charsheet = charsheet;
 		this.text = text;
 	}
+	XmlActionListener(CharacterSheet charsheet, JList list){
+		this.charsheet= charsheet;
+		this.list = list;
+	}
 //performance of action
 	public void actionPerformed(ActionEvent e){
 	String cmd = e.getActionCommand();
+	
 	if(cmd.equals(HTML)){
 		CardLayout c1 = (CardLayout) (steps.getLayout());
 		charsheet.exportAsHTML();
+	
 	}else if (cmd.equals(NEXT)){
 		CardLayout c1 = (CardLayout) (steps.getLayout());
 		c1.next(steps);
+	
 	}else if(cmd.equals(PREVIOUS)){
 		CardLayout c1 = (CardLayout) (steps.getLayout());
 		c1.previous(steps);
+	
 	}else if(cmd.equals(SHOW)){
 		CardLayout c1 = (CardLayout) (steps.getLayout());
 		charsheet.show();
+	
 	}else if(cmd.equals(QUIT)){
 		System.exit(0);
+	
 	}else if(cmd.equals("RACE")){
 		charsheet.Race = combo.getSelectedItem().toString(); 
+	
 	}else if(cmd.equals("CULTURE")){
 		charsheet.Culture = combo.getSelectedItem().toString(); 
+	
 	}else if(cmd.equals("ARCHETYPE")){
 		charsheet.Archetype = combo.getSelectedItem().toString(); 
+	
 	}else if(cmd.equals("RELIGION")){
 		charsheet.Religion = combo.getSelectedItem().toString(); 
+	
 	}else if(cmd.equals("GENDER")){
 		charsheet.Gender = combo.getSelectedItem().toString(); 
+	
 	}else if (cmd.equals("NAME")){
 		charsheet.Name = text.getText();
+	
 	}else if (cmd.equals("AGE")){
 	charsheet.Age = Integer.parseInt(text.getText());	
-	}
 	
+	}else if(cmd.equals("HAND")){
+		charsheet.Hand = combo.getSelectedItem().toString(); 
+	
+	}else if(cmd.equals("LOOK")){
+		charsheet.Look = text.getText(); 
+	
+	}else if (cmd.equals("STEP1")){
+		charsheet.setSpellList(charsheet);
+		charsheet.raceMod(charsheet);
+		int[] selectedIndices = list.getSelectedIndices();
+		String selectedElement = (String) list.getModel().getElementAt(selectedIndices[0]);
+		for (int i=1; i<selectedIndices.length; i++){
+			String elem = (String) list.getModel().getElementAt(selectedIndices[i]);
+			selectedElement += "; "+ elem;
+		}
+		charsheet.Language=selectedElement;
+	}else if(cmd.equals("HP")){
+		charsheet.Hitpoints = Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("ENERGY")){
+		charsheet.Energy = Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("INT")){
+		charsheet.Stats[0]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("CHARI")){
+		charsheet.Stats[1]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("GESCH")){
+		charsheet.Stats[2]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("SCHNELL")){
+		charsheet.Stats[3]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("KRAFT")){
+		charsheet.Stats[4]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("AUSD")){
+		charsheet.Stats[5]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("MUT")){
+		charsheet.Stats[6]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("WACHS")){
+		charsheet.Stats[7]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("INTU")){
+		charsheet.Stats[8]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("STRENGTH")){
+		charsheet.Strength = combo.getSelectedItem().toString();
+		
+	}else if(cmd.equals("WEAK")){
+		charsheet.Weakness = combo.getSelectedItem().toString();
+	
+	}else if(cmd.equals("ALI")){
+		charsheet.Alignment = combo.getSelectedItem().toString();
+
+		
+	
+	}else if(cmd.equals("ABIL")){
+		int[] selectedIndices = list.getSelectedIndices();
+		for (int i=0; i<selectedIndices.length; i++){
+			String elem = (String) list.getModel().getElementAt(selectedIndices[i]);
+			charsheet.Abilities[i] = elem;
+		}
+	
+	}else if(cmd.equals("SPELL")){
+		int[] selectedIndices = list.getSelectedIndices();
+		String selectedElement = (String) list.getModel().getElementAt(selectedIndices[0]);
+		for (int i=1; i<selectedIndices.length; i++){
+			int j=selectedIndices[i];
+			String elem = (String) list.getModel().getElementAt(selectedIndices[i]);
+			charsheet.Spells[i] = charsheet.completeSpells[j];
+			selectedElement += "; "+ elem;
+		}
+	
+	}else if(cmd.equals("MELEE")){
+		String art = combo.getSelectedItem().toString();
+		if(art.equals("Stab")){
+			charsheet.Melee.Name="Stab";
+		}else if (art.equals("Dolch")){
+
+			charsheet.Melee.Name="Schwertdolch";
+		}else if (art.equals("Fechtwaffe")){
+			charsheet.Melee.Name="Trinidischer Rapier";
+			
+		}else if (art.equals("Einhandschwert")){
+			charsheet.Melee.Name="Kurzschwert";
+			
+		}else if (art.equals("Zweihandschwert")){
+
+			charsheet.Melee.Name="Bastardschwert";
+		}else if (art.equals("Einhandaxt")){
+
+			charsheet.Melee.Name="Kriegsbeil";
+		}else if (art.equals("Zweihandaxt")){
+
+			charsheet.Melee.Name="Henkersbeil";
+		}else if (art.equals("Einhandstreitkolben")){
+
+			charsheet.Melee.Name="Morgenstern";
+		}else if (art.equals("Zweihandstreitkolben")){
+
+			charsheet.Melee.Name="Schlachthammer";
+		}else if (art.equals("Lanze")){
+
+			charsheet.Melee.Name="Speer";
+		}
+	
+	}else if(cmd.equals("RAN")){
+		String art = combo.getSelectedItem().toString();
+		if(art.equals("Bogen")){
+			charsheet.Range.Name="Primitivbogen";
+			charsheet.Range.AmmoName="Kriegspfeil";
+		}else if (art.equals("Armbrust")){
+			charsheet.Range.Name="Balester";
+			charsheet.Range.AmmoName="Steinkugel";
+		}
+	
+	}else if(cmd.equals("ARM")){
+		String art = combo.getSelectedItem().toString();
+		if(art.equals("Stoff")){
+			charsheet.Armor[0].Name="leichte Bekleidung";
+			
+		}else if (art.equals("Leder")){
+			charsheet.Armor[0].Name="Lederwams";
+			
+		}else if (art.equals("Metall")){
+			charsheet.Armor[0].Name="Kettenhemd";
+			
+		}
+	
+	}else if(cmd.equals("wille")){
+		charsheet.Skills[0]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("konz")){
+		charsheet.Skills[1]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("init")){
+		charsheet.Skills[2]+=Integer.parseInt(text.getText());
+	
+	}else if(cmd.equals("selbstb")){
+		charsheet.Skills[3]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("gelenk")){
+		charsheet.Skills[4]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("waffe")){
+		charsheet.Skills[5]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("trag")){
+		charsheet.Skills[6]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("reisev")){
+		charsheet.Skills[7]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("reg")){
+		charsheet.Skills[8]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("immun")){
+		charsheet.Skills[9]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("glaube")){
+		charsheet.Skills[10]+=Integer.parseInt(text.getText());
+		
+	}else if(cmd.equals("glück")){
+		charsheet.Skills[11]+=Integer.parseInt(text.getText());
+		
+	}
 	}
 }
