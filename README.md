@@ -18,6 +18,7 @@ This programm was developped for Java JRE 1.6 or higher.
 
 To run, simply download the file CharacterGenerator.jar and run it.
 
+The source including any development-related files is contained in the folder "charactergenerator".
 
 ====
 LICENSE
