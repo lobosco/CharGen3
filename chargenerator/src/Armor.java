@@ -24,9 +24,9 @@ public class Armor {
     String Sort;
     String Material;
     int Protection;
-    int Break;
+    String Break;
     
-    public Armor(String Name, String Sort, String Material, int Protection, int Break){
+    public Armor(String Name, String Sort, String Material, int Protection, String Break){
     	this.Name = Name;
     	this.Sort = Sort;
     	this.Material = Material;

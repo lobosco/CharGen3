@@ -24,51 +24,28 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class XmlActionListener implements ActionListener {
-/*//initialisation of charsheet
-	 int a = 50;
-     int b = 5;
-     int c = 20;
-     String d = "name namerson";
-     String e = "canado-asian";
-     String f = "Arschkriecher";
-     String g = "Bla und Blubb";
-     String[] h = {"rödeln", "dödeln", "blasen"};
-     String[] i = {"talent", "los"};
-     String j = "strength";
-     String k = "weakness";
-     int[] l = {0,0,0,0,0,0,0,0,0,0};
-     int[] m = {0,0,0,0,0,0,0,0,0,0};
-     int[] n = {0,0,0};
-     String o = "neutral";
-     String p = "kulturell";
-     String[] q = {"her", "hin"};
-     int r = 42;
-     String[] s = {"bla", "blubb"};
-     Weapon t = new Weapon("zerhackender Zerhacker", 0,0,0,0,0, "fleisch");
-     Weapon u = new Weapon("zerhackender Zerhacker", 0,0,0,0,0, "fleisch");
-     Armor[] v = {new Armor("hut","kopf", "eisen",0,0 ), new Armor("hut","kopf", "eisen",0,0)};
-     Spell[] w = {new Spell("hallo", "hier", "hut"), new Spell("hallo", "hier", "hut"), new Spell("hallo", "hier", "hut"), new Spell("hallo", "hier", "hut")};
-     String x = "chinesisch";
-     String y = "Religion";
-     String z = "dritte Hand";
-     String ar = "aphatisch";
-	*/
 	final String QUIT = "QUIT";
 	final String SHOW = "SHOW";
 	final String NEXT = "NEXT";
 	final String PREVIOUS = "PREVIOUS";
 	final String HTML = "HTML";
-    CharacterSheet charsheet;// = new CharacterSheet(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ar);
+    CharacterSheet charsheet;
     JPanel steps;
     JComboBox combo;
     JTextField text;
     JButton button;
     JList list;
+    JFrame frame;
      //declaration
 	XmlActionListener(CharacterSheet charsheet, JPanel steps){
 	this.charsheet = charsheet;
 	this.steps = steps;
 }
+	XmlActionListener(CharacterSheet charsheet, JPanel steps, JFrame frame){
+		this.charsheet = charsheet;
+		this.steps = steps;
+		this.frame=frame;
+	}
 	XmlActionListener(CharacterSheet charsheet, JButton button){
 		this.charsheet = charsheet;
 		this.button = button;
@@ -85,6 +62,10 @@ public class XmlActionListener implements ActionListener {
 		this.charsheet= charsheet;
 		this.list = list;
 	}
+	XmlActionListener(CharacterSheet charsheet, JFrame frame){
+		this.charsheet = charsheet;
+		this.frame = frame;
+	}
 //performance of action
 	public void actionPerformed(ActionEvent e){
 	String cmd = e.getActionCommand();
@@ -94,6 +75,7 @@ public class XmlActionListener implements ActionListener {
 		charsheet.exportAsHTML();
 	
 	}else if (cmd.equals(NEXT)){
+		
 		CardLayout c1 = (CardLayout) (steps.getLayout());
 		c1.next(steps);
 	
@@ -146,10 +128,10 @@ public class XmlActionListener implements ActionListener {
 		}
 		charsheet.Language=selectedElement;
 	}else if(cmd.equals("HP")){
-		charsheet.Hitpoints = Integer.parseInt(text.getText());
+		charsheet.Hitpoints += Integer.parseInt(text.getText());
 	
 	}else if(cmd.equals("ENERGY")){
-		charsheet.Energy = Integer.parseInt(text.getText());
+		charsheet.Energy += Integer.parseInt(text.getText());
 	
 	}else if(cmd.equals("INT")){
 		charsheet.Stats[0]+=Integer.parseInt(text.getText());
@@ -179,15 +161,13 @@ public class XmlActionListener implements ActionListener {
 		charsheet.Stats[8]+=Integer.parseInt(text.getText());
 	
 	}else if(cmd.equals("STRENGTH")){
-		charsheet.Strength = combo.getSelectedItem().toString();
+		charsheet.Strength += combo.getSelectedItem().toString();
 		
 	}else if(cmd.equals("WEAK")){
-		charsheet.Weakness = combo.getSelectedItem().toString();
+		charsheet.Weakness += combo.getSelectedItem().toString();
 	
 	}else if(cmd.equals("ALI")){
 		charsheet.Alignment = combo.getSelectedItem().toString();
-
-		
 	
 	}else if(cmd.equals("ABIL")){
 		int[] selectedIndices = list.getSelectedIndices();
@@ -197,6 +177,7 @@ public class XmlActionListener implements ActionListener {
 		}
 	
 	}else if(cmd.equals("SPELL")){
+		charsheet.setVampWereDuel(charsheet);
 		int[] selectedIndices = list.getSelectedIndices();
 		String selectedElement = (String) list.getModel().getElementAt(selectedIndices[0]);
 		for (int i=1; i<selectedIndices.length; i++){
@@ -210,56 +191,144 @@ public class XmlActionListener implements ActionListener {
 		String art = combo.getSelectedItem().toString();
 		if(art.equals("Stab")){
 			charsheet.Melee.Name="Stab";
+			charsheet.Melee.Material="Buche";
+			charsheet.Melee.Break=1;
+			charsheet.Melee.Attack="2W6+3";
+			charsheet.Melee.Block="1W6+2";
+		
 		}else if (art.equals("Dolch")){
 
 			charsheet.Melee.Name="Schwertdolch";
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="1W6+4";
+			charsheet.Melee.Block="1W6+3";
+		
 		}else if (art.equals("Fechtwaffe")){
 			charsheet.Melee.Name="Trinidischer Rapier";
-			
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="1W6+4";
+			charsheet.Melee.Block="1W6+4";
+            charsheet.Stats[3]+=2;
+            charsheet.Stats[2]-=1;
 		}else if (art.equals("Einhandschwert")){
 			charsheet.Melee.Name="Kurzschwert";
-			
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="2W6+1";
+			charsheet.Melee.Block="2W6+2";
+		
 		}else if (art.equals("Zweihandschwert")){
 
 			charsheet.Melee.Name="Bastardschwert";
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="3W6+1";
+			charsheet.Melee.Block="2W6+2";
+		
 		}else if (art.equals("Einhandaxt")){
 
 			charsheet.Melee.Name="Kriegsbeil";
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="2W6+1";
+			charsheet.Melee.Block="2W6+1";
+		
 		}else if (art.equals("Zweihandaxt")){
 
 			charsheet.Melee.Name="Henkersbeil";
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="3W6+2";
+			charsheet.Melee.Block="2W6+2";
+		
 		}else if (art.equals("Einhandstreitkolben")){
 
 			charsheet.Melee.Name="Morgenstern";
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="2W6+3";
+			charsheet.Melee.Block="1W6+4";
+		
 		}else if (art.equals("Zweihandstreitkolben")){
 
 			charsheet.Melee.Name="Schlachthammer";
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="3W6+3";
+			charsheet.Melee.Block="2W6+1";
+		
 		}else if (art.equals("Lanze")){
 
 			charsheet.Melee.Name="Speer";
+			charsheet.Melee.Material="Eisen";
+			charsheet.Melee.Break=-1;
+			charsheet.Melee.Attack="2W6+3";
+			charsheet.Melee.Block="1W6+2";
 		}
-	
-	}else if(cmd.equals("RAN")){
+	}else if(cmd.equals("MELEE2")){
+		String art = combo.getSelectedItem().toString();
+		
+		if (art.equals("Fechtwaffe")){
+			charsheet.Melee2.Name="Trinidischer Rapier";
+			charsheet.Melee2.Material="Eisen";
+			charsheet.Melee2.Break=-1;
+			charsheet.Melee2.Attack="1W6+4";
+			charsheet.Melee2.Block="1W6+4";
+            charsheet.Stats[3]+=2;
+            charsheet.Stats[2]-=1;
+		}else if (art.equals("Einhandschwert")){
+			charsheet.Melee2.Name="Kurzschwert";
+			charsheet.Melee2.Material="Eisen";
+			charsheet.Melee2.Break=-1;
+			charsheet.Melee2.Attack="2W6+1";
+			charsheet.Melee2.Block="2W6+2";
+		
+				}else if (art.equals("Einhandaxt")){
+
+			charsheet.Melee2.Name="Kriegsbeil";
+			charsheet.Melee2.Material="Eisen";
+			charsheet.Melee2.Break=-1;
+			charsheet.Melee2.Attack="2W6+1";
+			charsheet.Melee2.Block="2W6+1";
+		
+		}
+		}else if(cmd.equals("RAN")){
 		String art = combo.getSelectedItem().toString();
 		if(art.equals("Bogen")){
 			charsheet.Range.Name="Primitivbogen";
 			charsheet.Range.AmmoName="Kriegspfeil";
+			charsheet.Range.Attack="1W6+6";
+			charsheet.Range.Distance="60/100";
+			charsheet.Range.Break=5;//Genauigkeitswert 
 		}else if (art.equals("Armbrust")){
 			charsheet.Range.Name="Balester";
 			charsheet.Range.AmmoName="Steinkugel";
+			charsheet.Range.Attack="1W6+4";
+			charsheet.Range.Distance="60/100";
+			charsheet.Range.Break=5;//Genauigkeitswert
 		}
 	
 	}else if(cmd.equals("ARM")){
 		String art = combo.getSelectedItem().toString();
 		if(art.equals("Stoff")){
 			charsheet.Armor[0].Name="leichte Bekleidung";
-			
+			charsheet.Armor[0].Sort="Brust";
+			charsheet.Armor[0].Protection=1;
+			charsheet.Armor[0].Break="4/8/11";
+		
 		}else if (art.equals("Leder")){
 			charsheet.Armor[0].Name="Lederwams";
-			
+			charsheet.Armor[0].Sort="Brust";
+			charsheet.Armor[0].Protection=1;
+			charsheet.Armor[0].Break="6/10";
 		}else if (art.equals("Metall")){
 			charsheet.Armor[0].Name="Kettenhemd";
-			
+			charsheet.Armor[0].Sort="Brust";
+			charsheet.Armor[0].Protection=3;
+			charsheet.Armor[0].Break="6";
+			charsheet.Stats[2]-=1;
 		}
 	
 	}else if(cmd.equals("wille")){
@@ -298,6 +367,32 @@ public class XmlActionListener implements ActionListener {
 	}else if(cmd.equals("glück")){
 		charsheet.Skills[11]+=Integer.parseInt(text.getText());
 		
+	}else if(cmd.equals("SPECB")){
+		charsheet.SpecialItems[0]=combo.getSelectedItem().toString();
+		
+	}else if(cmd.equals("SPECH")){
+		charsheet.SpecialItems[4]=combo.getSelectedItem().toString();
+	
+	}else if(cmd.equals("SPECG")){
+		charsheet.Talents[0]="Waffenkenntnis:" + combo.getSelectedItem().toString();
+	
+	}else if(cmd.equals("SPECW")){
+		charsheet.Talents[0]="Waffenkenntnis: " +combo.getSelectedItem().toString();
+	
+	}else if (cmd.equals("VWEAK")){
+		charsheet.Weakness = "Sonnenlicht, Knoblauch, " + combo.getSelectedItem().toString();
+	
+	}else if (cmd.equals("VSTRENGTH")){
+		charsheet.Strength= "Vampirreflexe, Untotes Leben, " + combo.getSelectedItem().toString();
+	
+	}else if (cmd.equals("WWEAK")){
+		charsheet.Weakness = "Silber, Wolfsfluch, " + combo.getSelectedItem().toString();	
+	
+	}else if (cmd.equals("WSTRENGTH")){
+		charsheet.Strength= "Wolfskraft, Lynusblut, " + combo.getSelectedItem().toString();
+	}else if (cmd.equals("close")){
+		frame.dispose();
 	}
+	
 	}
 }
