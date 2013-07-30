@@ -14,7 +14,7 @@ Version History:
 
 Installation:
 
-This programm was developpen for Java JRE 1.6 or higher.
+This programm was developped for Java JRE 1.6 or higher.
 
 To run, simply download the file CharacterGenerator.jar and run it.
 
