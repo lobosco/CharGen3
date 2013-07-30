@@ -20,7 +20,6 @@ Copyright (C) 2013 Wolfgang Knopki
 */
 //import libraries
 import javax.swing.*;
-import javax.swing.text.StyledDocument;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -88,10 +87,13 @@ public class CharacterSheet {
 	String Religion;
 	String[] listOfSpells = {"hallo", "hier", "hirt", "bla", "blubb", "blubb"};
 	Spell[] completeSpells = {INITSPELL, INITSPELL, INITSPELL, INITSPELL, INITSPELL, INITSPELL};
-	String[] meleeList = {"", "", "", "", "", "", "", "", "", ""};
+	String[] meleeList = {"", "", "", "", "", "", "", "", "", "", ""};
 	String[] rangeList = {"", "", "" };
 	String[] armorTypeList = {"", "", ""};
 	String space = ""; //space String for any purpose
+	DefaultComboBoxModel model = new DefaultComboBoxModel(meleeList);
+	
+	
 	/*initializes Character Sheet*/
 	public CharacterSheet(int Hitpoints, int Energy, int Age, String Name, String Race, String Archetype,	String Look, String[] Abilities, String[] Talents, String Strength,	String Weakness, int[] Stats, int[] Skills,	int[] Money, String Gender,	String Culture,	String[] Bag, int Level, String[] SpecialItems, Weapon Melee,Weapon Melee2,  Weapon Range, Armor[] Armor, Spell[] Spells, String Language, String Religion, String Hand, String Alignment ){
 		this.Hitpoints = Hitpoints;
@@ -172,8 +174,9 @@ public class CharacterSheet {
 		File file = save.getSelectedFile();
 		String text=this.output(0);
 		try{
+			if(file != null){
 			write=new FileWriter(file);
-			write.write(text);
+			write.write(text);}
 			
 		}catch(IOException e){
 			System.err.println("Fehler beim Speichern");
@@ -191,7 +194,6 @@ public class CharacterSheet {
 		final String SHOW = "SHOW";
 		final String NEXT = "NEXT";
 		final String PREVIOUS = "PREVIOUS";
-		final String HTML = "HTML";
 		final String QUIT = "QUIT";
 		final String TEXT = "<html>Herzlich Willkommen zum Charaktergenerator 3.00.<p/> Dieses Programm ist angepasst auf die Version 3.0 des Amuntalon-Regelwerkes.<p/> Dieses Programm dient nur der Ergänzung und kann das Regelwerk nicht ersetzen. <p/> Es ist deshalb angeraten, das Regelbuch griffbereit zu halten.<p/><p/>" +
 				"LICENSE: <p/> Dieses Programm wurde unter der GNU General Public License Version 3 veröffentlicht</html>";
@@ -235,7 +237,6 @@ public class CharacterSheet {
 		
 		//step1: name, race, etc to look
 		JPanel step1 = new JPanel(new GridBagLayout());
-        GridBagConstraints gcs = new GridBagConstraints();
 		
         JLabel n = new JLabel("Name:");
 		JTextField name = new JTextField(30);
@@ -333,8 +334,6 @@ public class CharacterSheet {
 		
 		
 		
-		JLabel cval = new JLabel("Charakterwerte:");
-		
 		JTextField inte = new JTextField(20);
 		inte.setActionCommand("INT");
 		inte.addActionListener(new XmlActionListener(this, inte));
@@ -424,9 +423,14 @@ public class CharacterSheet {
 		JList spells = new JList(this.listOfSpells);
 		JScrollPane scrollspell = new JScrollPane(spells);
 		
+		JPanel step5 = new JPanel();
+		JComboBox melee = new JComboBox(this.meleeList);
+		JComboBox range = new JComboBox(this.rangeList);
+		JComboBox armor = new JComboBox(this.armorTypeList);
+		
 		JButton endstep4 = new JButton("Einträge übernehmen");
 		endstep4.setActionCommand("SPELL");
-		endstep4.addActionListener(new XmlActionListener(this, spells));
+		endstep4.addActionListener(new XmlActionListener(this, spells, melee, range, armor));
 		
 		step3.setLayout(new GridLayout(8,2));
 		step3.add(new JLabel("Kenntnisse (wähle 3):"));
@@ -446,21 +450,13 @@ public class CharacterSheet {
 		
 		
 		//step5 weapons, armor, shields
-		JPanel step5 = new JPanel();
-		
-		JComboBox melee = new JComboBox(this.meleeList);
+	
 		melee.setActionCommand("MELEE");
 		melee.addActionListener(new XmlActionListener(this, melee));
 		
-		JComboBox melee2 = new JComboBox(this.meleeList);
-		melee2.setActionCommand("MELEE2");
-		melee2.addActionListener(new XmlActionListener(this, melee2));
-		
-		JComboBox range = new JComboBox(this.rangeList);
 		range.setActionCommand("RAN");
 		range.addActionListener(new XmlActionListener(this, range));
 		
-		JComboBox armor = new JComboBox(this.armorTypeList);
 		armor.setActionCommand("ARM");
 		armor.addActionListener(new XmlActionListener(this, armor));
 		
@@ -581,10 +577,8 @@ public class CharacterSheet {
 		final String CHAR = "Charismaprobe";
 		final String WACH = "Wachsamkeitsprobe";
 		final String INTU = "Intuitionsprobe";
-		final String WILL = "Willenskraftprobe";
 		final String KRAFT = "Kraftprobe";
 		final String GESCH = "Geschicklichkeitsprobe";
-		final String KONZ = "Konzentrationsprobe";
 		final String SCHNELL = "Schnelligkeitsprobe";
 		final String AUS = "Ausdauerprobe";
 		final String MUT = "Mutprobe";
@@ -645,6 +639,7 @@ public class CharacterSheet {
 			charsheet.armorTypeList[1] = STOFF;
 			charsheet.armorTypeList[2] = LEDER;
 			charsheet.meleeList[1]=STAB;
+			charsheet.model= new DefaultComboBoxModel(charsheet.meleeList);
 			charsheet.SpecialItems[0]="Tieramulett";
 			charsheet.SpecialItems[1]="Ritualmesser";
 			charsheet.Stats[0]+=1;
@@ -1459,37 +1454,47 @@ public class CharacterSheet {
 		final String[] guardianWeapons = {ZWEISCHWERT, ZWAXT, STAB, EINSK, ZWEISK, FE, DO};
 		final String[] warriorWeapons = {ZWAXT, STAB, EINSK, ZWEISK, DO};
 		final String[] Instruments = {"Laute", "Harfe", "Schalmei", "Taschenpfeife", "Trommeln", "Trompete"};
-		final String[]emptybox = {"", ""};
+	
 		
 		window2.setLayout(new FlowLayout());
 		if (arch.equals("Jäger")){
 			window2.add(hunter);
 			JComboBox choose = new JComboBox(pets);
 			choose.setActionCommand("SPECH");
-			choose.addActionListener(new XmlActionListener(charsheet, choose));
+			choose.addActionListener(new XmlActionListener(charsheet, choose, window2));
 			window2.add(choose);
+			window2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			window2.setSize(800,600);
+			window2.setVisible(true);
 		}else if (arch.equals("Krieger")){
 			window2.add(warrior);
 			JComboBox choose = new JComboBox(warriorWeapons);
 			choose.setActionCommand("SPECW");
-			choose.addActionListener(new XmlActionListener(charsheet, choose));
+			choose.addActionListener(new XmlActionListener(charsheet, choose, window2));
 			window2.add(choose);
+			window2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			window2.setSize(800,600);
+			window2.setVisible(true);
 		}else if (arch.equals("Hüter")){
 			window2.add(guardian);
 			JComboBox choose = new JComboBox(guardianWeapons);
 			choose.setActionCommand("SPECG");
-			choose.addActionListener(new XmlActionListener(charsheet, choose));
+			choose.addActionListener(new XmlActionListener(charsheet, choose, window2));
 			window2.add(choose);
+			window2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			window2.setSize(800,600);
+			window2.setVisible(true);
 		}else if (arch.equals("Barde")){
 			window2.add(bard);
 			JComboBox choose = new JComboBox(Instruments);
 			choose.setActionCommand("SPECB");
-			choose.addActionListener(new XmlActionListener(charsheet, choose));
+			choose.addActionListener(new XmlActionListener(charsheet, choose, window2));
 			window2.add(choose);
+			window2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			window2.setSize(800,600);
+			window2.setVisible(true);
 			}
-		window2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		window2.setSize(800,600);
-		window2.setVisible(true);
+		
 		}
 	public void setVampWereDuel(CharacterSheet charsheet){
 		String arch = charsheet.Archetype;
@@ -1501,6 +1506,7 @@ public class CharacterSheet {
 	final String[] werestrength = {"Neutralisierender Biss", "Silberimmunität", "Mondlichtimmunität", "Unterdrückter Zorn"};
 		
 		JFrame window3 = new JFrame("Sonderarchetypen");
+		JPanel stuff = new JPanel();
 	JLabel text = new JLabel("Sie haben den besonderen Archetypen "+ arch+" gewählt. Bitte nehmen Sie nun weitere Auswahlen vor:");
 	JComboBox duel = new JComboBox(charsheet.meleeList);
 	duel.setActionCommand("MELEE2");
@@ -1539,34 +1545,64 @@ public class CharacterSheet {
 	close.setActionCommand("close");
 	close.addActionListener(new XmlActionListener(this, window3));
 	
-	window3.setLayout(new FlowLayout());
 	
-	window3.add(text);
+	
 	if(arch.equals("Duellant")){
-	
-	window3.add(new JLabel("Schildwaffe:"));
-	window3.add(duel);
-	}else if(arch.equals("Vampir")){
-		window3.add(new JLabel("Kenntnisse: (wähle 3)"));
-		window3.add(scrollvab);
-		window3.add(vabilities);
-		window3.add(new JLabel("Stärke:"));
-		window3.add(vstrength);
-		window3.add(new JLabel("Schwäche:"));
-		window3.add(vweak);
-	}else if(arch.equals("Werwolf")){
-		window3.add(new JLabel("Kenntnisse: (wähle 3)"));
-		window3.add(scrollwab);
-		window3.add(wabilities);
-		window3.add(new JLabel("Stärke:"));
-		window3.add(wstrength);
-		window3.add(new JLabel("Schwäche:"));
-		window3.add(wweak);
-	}
-	window3.add(close);
+		window3.setLayout(new GridLayout(2,1));
+		stuff.setLayout(new GridLayout(2,2));
+		window3.add(text);
+		
+	stuff.add(new JLabel("Schildwaffe:"));
+	stuff.add(duel);
+	stuff.add(new JLabel(""));
+	stuff.add(close);
+	window3.add(stuff);
 	window3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	window3.setSize(800,600);
 	window3.setVisible(true);
+	
+	}else if(arch.equals("Vampir")){
+		window3.setLayout(new GridLayout(2,1));
+		stuff.setLayout(new GridLayout(5,2));
+		window3.add(text);
+		
+		
+		stuff.add(new JLabel("Kenntnisse: (wähle 3)"));
+		stuff.add(scrollvab);
+		stuff.add(new JLabel(""));
+		stuff.add(vabilities);
+		stuff.add(new JLabel("Stärke:"));
+		stuff.add(vstrength);
+		stuff.add(new JLabel("Schwäche:"));
+		stuff.add(vweak);
+		stuff.add(new JLabel(""));
+		stuff.add(close);
+		window3.add(stuff);
+		window3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		window3.setSize(800,600);
+		window3.setVisible(true);
+		
+	}else if(arch.equals("Werwolf")){
+		window3.setLayout(new GridLayout(2,1));
+		stuff.setLayout(new GridLayout(5,2));
+		window3.add(text);
+		
+		stuff.add(new JLabel("Kenntnisse: (wähle 3)"));
+		stuff.add(scrollwab);
+		stuff.add(new JLabel(""));
+		stuff.add(wabilities);
+		stuff.add(new JLabel("Stärke:"));
+		stuff.add(wstrength);
+		stuff.add(new JLabel("Schwäche:"));
+		stuff.add(wweak);
+		stuff.add(new JLabel(""));
+		stuff.add(close);
+		window3.add(stuff);
+		window3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		window3.setSize(800,600);
+		window3.setVisible(true);
+		
+	}
 	}
 	
 	public String output(int i){

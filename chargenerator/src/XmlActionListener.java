@@ -36,6 +36,8 @@ public class XmlActionListener implements ActionListener {
     JButton button;
     JList list;
     JFrame frame;
+    JComboBox combo1;
+    JComboBox combo2;
      //declaration
 	XmlActionListener(CharacterSheet charsheet, JPanel steps){
 	this.charsheet = charsheet;
@@ -54,6 +56,11 @@ public class XmlActionListener implements ActionListener {
 		this.charsheet = charsheet;
 		this.combo = combo;
 	}
+	XmlActionListener(CharacterSheet charsheet, JComboBox combo, JFrame frame){
+		this.charsheet = charsheet;
+		this.combo = combo;
+		this.frame = frame;
+	}
 	XmlActionListener(CharacterSheet charsheet, JTextField text){
 		this.charsheet = charsheet;
 		this.text = text;
@@ -61,6 +68,12 @@ public class XmlActionListener implements ActionListener {
 	XmlActionListener(CharacterSheet charsheet, JList list){
 		this.charsheet= charsheet;
 		this.list = list;
+	}XmlActionListener(CharacterSheet charsheet, JList list, JComboBox steps, JComboBox steps1, JComboBox steps2){
+		this.charsheet= charsheet;
+		this.list = list;
+		this.combo=steps;
+		this.combo1=steps1;
+		this.combo2=steps2;
 	}
 	XmlActionListener(CharacterSheet charsheet, JFrame frame){
 		this.charsheet = charsheet;
@@ -71,11 +84,9 @@ public class XmlActionListener implements ActionListener {
 	String cmd = e.getActionCommand();
 	
 	if(cmd.equals(HTML)){
-		CardLayout c1 = (CardLayout) (steps.getLayout());
 		charsheet.exportAsHTML();
 	
 	}else if (cmd.equals(NEXT)){
-		
 		CardLayout c1 = (CardLayout) (steps.getLayout());
 		c1.next(steps);
 	
@@ -84,7 +95,6 @@ public class XmlActionListener implements ActionListener {
 		c1.previous(steps);
 	
 	}else if(cmd.equals(SHOW)){
-		CardLayout c1 = (CardLayout) (steps.getLayout());
 		charsheet.show();
 	
 	}else if(cmd.equals(QUIT)){
@@ -178,13 +188,17 @@ public class XmlActionListener implements ActionListener {
 	
 	}else if(cmd.equals("SPELL")){
 		charsheet.setVampWereDuel(charsheet);
+		DefaultComboBoxModel meleemod = new DefaultComboBoxModel(charsheet.meleeList);
+		DefaultComboBoxModel rangemod = new DefaultComboBoxModel(charsheet.rangeList);
+		DefaultComboBoxModel armormod = new DefaultComboBoxModel(charsheet.armorTypeList);
+		
+		combo.setModel(meleemod);
+		combo1.setModel(rangemod);
+		combo2.setModel(armormod);
 		int[] selectedIndices = list.getSelectedIndices();
-		String selectedElement = (String) list.getModel().getElementAt(selectedIndices[0]);
-		for (int i=1; i<selectedIndices.length; i++){
+	    for (int i=0; i<selectedIndices.length; i++){
 			int j=selectedIndices[i];
-			String elem = (String) list.getModel().getElementAt(selectedIndices[i]);
-			charsheet.Spells[i] = charsheet.completeSpells[j];
-			selectedElement += "; "+ elem;
+	        charsheet.Spells[i] = charsheet.completeSpells[j];
 		}
 	
 	}else if(cmd.equals("MELEE")){
@@ -369,16 +383,16 @@ public class XmlActionListener implements ActionListener {
 		
 	}else if(cmd.equals("SPECB")){
 		charsheet.SpecialItems[0]=combo.getSelectedItem().toString();
-		
+		frame.dispose();
 	}else if(cmd.equals("SPECH")){
 		charsheet.SpecialItems[4]=combo.getSelectedItem().toString();
-	
+	    frame.dispose();
 	}else if(cmd.equals("SPECG")){
 		charsheet.Talents[0]="Waffenkenntnis:" + combo.getSelectedItem().toString();
-	
+	    frame.dispose();
 	}else if(cmd.equals("SPECW")){
 		charsheet.Talents[0]="Waffenkenntnis: " +combo.getSelectedItem().toString();
-	
+	    frame.dispose();
 	}else if (cmd.equals("VWEAK")){
 		charsheet.Weakness = "Sonnenlicht, Knoblauch, " + combo.getSelectedItem().toString();
 	

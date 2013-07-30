@@ -20,9 +20,9 @@ Copyright (C) 2013 Wolfgang Knopki
 */
 
 //import libraries
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.*;
 
 public class CharacterGenerator {
 
@@ -39,33 +39,34 @@ public class CharacterGenerator {
          int a = 0; //hp
          int b = 0; //energy
          int c = 0; //age
-         String d = "name namerson";//name
-         String e = "canado-asian";//race
-         String f = "Arschkriecher";//archetype
-         String g = "Bla und Blubb";//look
-         String[] h = {"rödeln", "dödeln", "blasen"};//abilities 
-         String[] i = {"talent", "los"};//talents
+         String d = "";//name
+         String e = "";//race
+         String f = "";//archetype
+         String g = "";//look
+         String[] h = {"", "", ""};//abilities 
+         String[] i = {"", ""};//talents
          String j = "";  //strength
          String k = "";  //weakness
          int[] l = {0,0,0,0,0,0,0,0,0,0};//stats
          int[] m = {0,0,0,0,0,0,0,0,0,0,0,0};//skills
          int[] n = {0,0,0};//money
-         String o = "neutral";//gender
-         String p = "kulturell";//culture
+         String o = "";//gender
+         String p = "";//culture
          String[] q = {"", ""};//bag
-         int r = 42;//level
-         String[] s = {"bla", "blubb", "", "", "", ""};//Special Items
-         Weapon t = new Weapon("zerhackender Zerhacker", 0,"","","", "fleisch", "kuh");//melee
-         Weapon u = new Weapon("zerhackender Zerhacker", 0,"","","",  "fleisch", "kuh");//range
-         Armor[] v = {new Armor("hut","kopf", "eisen",0,"" ), new Armor("hut","kopf", "eisen",0,"")};//armor
-         Spell[] w = {new Spell("hallo", "hier", "hut"), new Spell("hallo", "hier", "hut"), new Spell("hallo", "hier", "hut"), new Spell("hallo", "hier", "hut")};//spells
-         String x = "chinesisch";//language
-         String y = "Religion";//religion
-         String z = "dritte Hand";//hand
-         String ar = "aphatisch";//alignment
+         int r = 0;//level
+         String[] s = {"", "", "", "", "", ""};//Special Items
+         Weapon t = new Weapon("", 0,"","","", "", "");//melee
+         Weapon t1 = new Weapon("", 0,"","","", "", "");//melee
+         Weapon u = new Weapon("", 0,"","","",  "", "");//range
+         Armor[] v = {new Armor("","", "",0,"" ), new Armor("","", "",0,"")};//armor
+         Spell[] w = {new Spell("", "", ""), new Spell("", "", ""), new Spell("", "", ""), new Spell("", "", "")};//spells
+         String x = "";//language
+         String y = "";//religion
+         String z = "";//hand
+         String ar = "";//alignment
         
          //initializes Character Sheet
-         CharacterSheet charsheet = new CharacterSheet(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t, t,u,v,w,x,y,z,ar);
+         CharacterSheet charsheet = new CharacterSheet(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t, t1,u,v,w,x,y,z,ar);
 
          charsheet.setStats();
   
