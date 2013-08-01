@@ -92,7 +92,7 @@ public class CharacterSheet {
 	String[] armorTypeList = {"", "", ""};
 	String space = ""; //space String for any purpose
 	DefaultComboBoxModel model = new DefaultComboBoxModel(meleeList);
-	
+	int statpoints=230;
 	
 	/*initializes Character Sheet*/
 	public CharacterSheet(int Hitpoints, int Energy, int Age, String Name, String Race, String Archetype,	String Look, String[] Abilities, String[] Talents, String Strength,	String Weakness, int[] Stats, int[] Skills,	int[] Money, String Gender,	String Culture,	String[] Bag, int Level, String[] SpecialItems, Weapon Melee,Weapon Melee2,  Weapon Range, Armor[] Armor, Spell[] Spells, String Language, String Religion, String Hand, String Alignment ){
@@ -203,7 +203,7 @@ public class CharacterSheet {
 		//creating window
 		JFrame window = new JFrame("Charakterbogengenerator");
 		JPanel steps = new JPanel(new CardLayout());
-		JLabel empty = new JLabel("");
+		String help = "zur Auswahl mehrerer Punkte Strg+*klick*. Anschließend auf `Auswahl übernehmen`";
 		
 		//Buttons
 		XmlActionListener listener = new XmlActionListener(this, steps, window);
@@ -282,6 +282,7 @@ public class CharacterSheet {
 		
 		JLabel lan = new JLabel("Sprache:");
 		JList language = new JList(LANGUAGELIST);
+		language.setToolTipText(help);
 		JScrollPane scrolllan = new JScrollPane(language);
 		lan.setLabelFor(language);
 		
@@ -324,6 +325,7 @@ public class CharacterSheet {
 		
 		//step2: hp, energy, stats
 		JPanel step2 = new JPanel();
+		JLabel textpoints = new JLabel("Sie können insgesamt maximal "+String.valueOf(statpoints)+" Punkte vergeben.");
 		JTextField hp = new JTextField(20);
 		hp.setActionCommand("HP");
 		hp.addActionListener(new XmlActionListener(this, hp));
@@ -370,13 +372,16 @@ public class CharacterSheet {
 		intu.setActionCommand("INTU");
 		intu.addActionListener(new XmlActionListener(this, intu));
 		
-		step2.setLayout(new GridLayout(12,2));
+		step2.setLayout(new GridLayout(13,2));
+		
+		step2.add(new JLabel(""));
+		step2.add(textpoints);
 		step2.add(new JLabel("Leben:"));
 		step2.add(hp);
-		step2.add(new JLabel("Energie:"));
+		step2.add(new JLabel("Energie: (maximal 18 Punkte)"));
 		step2.add(energy);
 		step2.add(new JLabel("Charakterwerte:")); 
-		step2.add(empty);
+		step2.add(new JLabel("jeweils 8 bis 25 Punkte"));
 		step2.add(new JLabel("Intelligenz:"));
 		step2.add(inte);
 		step2.add(new JLabel("Charisma:"));
@@ -401,7 +406,7 @@ public class CharacterSheet {
 		
 		JList abilities = new JList(ABILITYLIST);
 		JScrollPane scrollabs = new JScrollPane(abilities);
-		
+		abilities.setToolTipText(help);
 		JComboBox strength = new JComboBox(STRENGTHLIST);
 		strength.setActionCommand("STRENGTH");
 		strength.addActionListener(new XmlActionListener(this, strength));
@@ -414,13 +419,14 @@ public class CharacterSheet {
 		alignment.setActionCommand("ALI");
 		alignment.addActionListener(new XmlActionListener(this, alignment));
 		
-		JButton absdone = new JButton("Einträge übernehmen");
+		JButton absdone = new JButton("Auswahl übernehmen");
 		absdone.setActionCommand("ABIL");
 		absdone.addActionListener(new XmlActionListener(this, abilities));
 		
 		JLabel spell = new JLabel("Fähigkeiten (Wähle 4):");
 
 		JList spells = new JList(this.listOfSpells);
+		spells.setToolTipText(help);
 		JScrollPane scrollspell = new JScrollPane(spells);
 		
 		JPanel step5 = new JPanel();
@@ -428,7 +434,7 @@ public class CharacterSheet {
 		JComboBox range = new JComboBox(this.rangeList);
 		JComboBox armor = new JComboBox(this.armorTypeList);
 		
-		JButton endstep4 = new JButton("Einträge übernehmen");
+		JButton endstep4 = new JButton("Auswahl übernehmen");
 		endstep4.setActionCommand("SPELL");
 		endstep4.addActionListener(new XmlActionListener(this, spells, melee, range, armor));
 		
@@ -517,7 +523,7 @@ public class CharacterSheet {
 		step5.add(new JLabel("Rüstungsart: "));
 		step5.add(armor);
 		step5.add(new JLabel("Charaktereigenschaften:"));
-		step5.add(new JLabel(""));
+		step5.add(new JLabel("insgesamt 20 Punkte"));
 		step5.add(new JLabel("Willenskraft:"));
 		step5.add(wille);
 		step5.add(new JLabel("Konzentration:"));

@@ -38,6 +38,7 @@ public class XmlActionListener implements ActionListener {
     JFrame frame;
     JComboBox combo1;
     JComboBox combo2;
+    JLabel Label;
      //declaration
 	XmlActionListener(CharacterSheet charsheet, JPanel steps){
 	this.charsheet = charsheet;
