@@ -1456,10 +1456,10 @@ public class CharacterSheet {
 		JLabel guardian = new JLabel("Sie haben den Archetyp Hüter gewählt. Wählen Sie nun ihre bevorzugte Waffenkenntis");
 		JLabel bard = new JLabel("Sie haben den Archetypen Barde gewählt. Wählen Sie nun ihr bevorzugtes Instrument");
 		
-		final String[] pets = {"Jagdhund", "Jagdfalke", "Luchs"};
-		final String[] guardianWeapons = {ZWEISCHWERT, ZWAXT, STAB, EINSK, ZWEISK, FE, DO};
-		final String[] warriorWeapons = {ZWAXT, STAB, EINSK, ZWEISK, DO};
-		final String[] Instruments = {"Laute", "Harfe", "Schalmei", "Taschenpfeife", "Trommeln", "Trompete"};
+		final String[] pets = {"","Jagdhund", "Jagdfalke", "Luchs"};
+		final String[] guardianWeapons = {"",ZWEISCHWERT, ZWAXT, STAB, EINSK, ZWEISK, FE, DO};
+		final String[] warriorWeapons = {"",ZWAXT, STAB, EINSK, ZWEISK, DO};
+		final String[] Instruments = {"","Laute", "Harfe", "Schalmei", "Taschenpfeife", "Trommeln", "Trompete"};
 	
 		
 		window2.setLayout(new FlowLayout());
@@ -1651,7 +1651,7 @@ this.Spells[2].Name + "</td><td>"+ this.Spells[2].Prerequisites+"</td><td>"+this
 this.Spells[3].Name + "</td><td>"+ this.Spells[3].Prerequisites+"</td><td>"+this.Spells[3].Effect+"</td></tr></table><h3>Rüstung</h3><table border=1><th>Name</th><th>Rüstungsart</th><th>Schutzwert</th><th>Rissfaktor</th><tr><td>"+
 this.Armor[0].Name + "</td><td>"+this.Armor[0].Sort+"</td><td>"+String.valueOf(this.Armor[0].Protection)+"</td><td>"+this.Armor[0].Break+"</td></tr><tr><td>"+
 this.Armor[1].Name + "</td><td>"+this.Armor[1].Sort+"</td><td>"+String.valueOf(this.Armor[1].Protection)+"</td><td>"+this.Armor[1].Break+"</td></tr><table><table border=1><tr><td>Gesamtschutzwert</td><td>"+
-String.valueOf(this.Armor[0].Break+ this.Armor[1].Break)+"</td></tr></table><table><th>Charaktereigenschaften</th><th> Moral</th><th>Ränge</th><tr><td><table border=1><tr><td>Willenskraft</td><td>"+
+String.valueOf(this.Armor[0].Protection+ this.Armor[1].Protection)+"</td></tr></table><table><th>Charaktereigenschaften</th><th> Moral</th><th>Ränge</th><tr><td><table border=1><tr><td>Willenskraft</td><td>"+
 String.valueOf(this.Skills[0])+"</td><td> Tragkraft</td><td>"+
 String.valueOf(this.Skills[6])+"</td></tr><tr><td>Konzentration</td><td>"+
 String.valueOf(this.Skills[1])+"</td><td>Reisegeschwindigkeit</td><td>"+

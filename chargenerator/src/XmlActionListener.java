@@ -206,8 +206,8 @@ public class XmlActionListener implements ActionListener {
 		String art = combo.getSelectedItem().toString();
 		if(art.equals("Stab")){
 			charsheet.Melee.Name="Stab";
-			charsheet.Melee.Material="Buche";
-			charsheet.Melee.Break=1;
+			charsheet.Melee.Material="Haselnuss";
+			charsheet.Melee.Break=3;
 			charsheet.Melee.Attack="2W6+3";
 			charsheet.Melee.Block="1W6+2";
 		
