@@ -147,6 +147,11 @@ public class CharacterSheet {
 		xml.setActionCommand("HTML");
 		xml.addActionListener( new XmlActionListener(this, set));
 		
+		JButton snd = new JButton ("An Server senden");
+		snd.setActionCommand("SND");
+		snd.addActionListener( new XmlActionListener(this, set));
+		
+		
 		JButton end = new JButton("Ohne Speichern beenden");
 		
 		ActionListener finish = new ActionListener(){
@@ -160,6 +165,7 @@ public class CharacterSheet {
 		buttons.add(end);
 		buttons.add(xml);
 		buttons.add(sav);
+		buttons.add(snd);
 		f.add(buttons);
 		f.setVisible ( true );
 		
@@ -1676,6 +1682,10 @@ this.SpecialItems[1]+"</td><td>"+this.SpecialItems[2]+"</td></tr><tr><td>"+this.
 			erg = rohtext;
 		}
 		return erg;	
+	}
+	
+	public void send(){
+		new Client(this).run();
 	}
 	
   	}

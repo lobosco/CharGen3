@@ -29,6 +29,7 @@ public class XmlActionListener implements ActionListener {
 	final String NEXT = "NEXT";
 	final String PREVIOUS = "PREVIOUS";
 	final String HTML = "HTML";
+	final String SND = "SND";
     CharacterSheet charsheet;
     JPanel steps;
     JComboBox combo;
@@ -39,6 +40,8 @@ public class XmlActionListener implements ActionListener {
     JComboBox combo1;
     JComboBox combo2;
     JLabel Label;
+    Client client;
+    ServerThread server;
      //declaration
 	XmlActionListener(CharacterSheet charsheet, JPanel steps){
 	this.charsheet = charsheet;
@@ -52,6 +55,22 @@ public class XmlActionListener implements ActionListener {
 	XmlActionListener(CharacterSheet charsheet, JButton button){
 		this.charsheet = charsheet;
 		this.button = button;
+	}
+	XmlActionListener(Client client, JTextField text){
+		this.client = client;
+		this.text = text;
+	}
+	XmlActionListener(Client client, JButton button){
+		this.client = client;
+		this.button = button;
+	}
+	XmlActionListener(ServerThread server, JButton button){
+		this.server = server;
+		this.button = button;
+	}
+	XmlActionListener(ServerThread server, JPanel panel){
+		this.server = server;
+		this.steps = panel;
 	}
 	XmlActionListener(CharacterSheet charsheet, JComboBox combo){
 		this.charsheet = charsheet;
@@ -87,6 +106,15 @@ public class XmlActionListener implements ActionListener {
 	if(cmd.equals(HTML)){
 		charsheet.exportAsHTML();
 	
+	}else if(cmd.equals(SND)){
+	charsheet.send();
+	}else if(cmd.equals("HTMLS")){
+		server.exportashtml(server.input);
+	}else if(cmd.equals("TEX")){
+		server.compileTex(server.input);
+	}else if(cmd.equals("IP")){
+		client.IP = text.getText();
+		client.send();
 	}else if (cmd.equals(NEXT)){
 		CardLayout c1 = (CardLayout) (steps.getLayout());
 		c1.next(steps);
