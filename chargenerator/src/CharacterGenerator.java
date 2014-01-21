@@ -74,7 +74,7 @@ public class CharacterGenerator {
          String ar = " ";//alignment
         
          //other initializations/variables
-         final String TEXT = "<html>Herzlich Willkommen zum Charaktergenerator 3.00.<p/> Dieses Programm ist angepasst auf die Version 3.0 des Amuntalon-Regelwerkes.<p/> Dieses Programm dient nur der Ergänzung und kann das Regelwerk nicht ersetzen. <p/> Es ist deshalb angeraten, das Regelbuch griffbereit zu halten.<p/><p/>" +
+         final String TEXT = "<html>Herzlich Willkommen zum Charaktergenerator 3.01.<p/> Dieses Programm ist angepasst auf die Version 3.0 des Amuntalon-Regelwerkes.<p/> Dieses Programm dient nur der Ergänzung und kann das Regelwerk nicht ersetzen. <p/> Es ist deshalb angeraten, das Regelbuch griffbereit zu halten.<p/><p/>" +
  				"LICENSE: <p/> Dieses Programm wurde unter der GNU General Public License Version 3 veröffentlicht<p/><p/>Bitte wählen Sie Ihre gewünschte Regelwerksversion aus: </html>";
          
          //initializes Character Sheet
