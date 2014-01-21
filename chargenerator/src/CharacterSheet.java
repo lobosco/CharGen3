@@ -28,17 +28,17 @@ import java.io.*;
 public class CharacterSheet {
 	
 	//declaring constants
-	final String[] RACELIST = {"","Amazone", "Amunier", "Bergzwerg", "Dathure", "Elf", "Gnom", "Grimmtaure", "Halbelf", "Hügelzwerg", "Kobold", "Minotaur", "Nordländer", "Ork", "Taravellaner", "Scantare", "Schattenelf", "Talonier", "Trinide", "Wanure","Zentaur" };
-	final String[] ARCHETYPELIST = {"","Magier", "Beschwörer", "Druide", "Nekromant", "Schamane", "Hexendoktor", "Arkanist", "Krieger", "Ritter", "Baphosritter", "Hüter", "Berserker", "Waffenmeister", "Duellant", "Späher", "Jäger", "Waldläufer", "Pirat", "Dieb", "Assassine", "Gaukler", "Scharlatan", "Hexenjäger", "Alchemist", "Drachenjäger", "Kleriker", "Hohepriester", "Inquisitor", "Arzt", "Barde", "Vampir", "Werwolf"};
-	final String[] CULTURELIST = {"","Arquill", "Denquill", "Brenland", "Tarek", "Tjam-Wüste", "Wisha Küste", "Tundra", "Bergland", "Fjordland", "Trinidas", "Nebelmarschen", "Sieben Ebenen", "Kristallwüste", "Tortaja und Girada", "Roma", "Dathuria", "Elfen", "Schattenelfen", "Bergzwerge", "Hügelzwerge"};
-	final String[] LANGUAGELIST = {"","Moiar", "Bhasa", "Run Mor", "Suara", "Barach", "Draak Huil", "Duwia", "Latanis", "Ingelesa", "Gerunnik", "Aggara"};
-	final String[] ALIGNMENTLIST = {"", "aufopfernd", "neutral", "skrupellos"};
-	final String[] GENDERLIST = {"", "männlich", "weiblich"};
-	final String[] ABILITYLIST = {"", "Kochen", "Schreiben", "Rechnen", "Feuer machen", "Malen", "Klettern", "Schwimmen", "Reiten", "Erste Hilfe", "Kräuterkunde", "Schnitzen", "Nähen", "Schmieden", "Bergbau", "Giftherstellung", "Alchemie", "Kürschnern", "Astrologie", "Etikette", "Seefahrt", "Abrichten", "Religion", "Tierkunde", "Gesteinskunde", "Navigation", "Schätzen", "Überreden", "Feilschen", "Gesteinskenntnisse", "Geschichten und Legenden", "Musizieren", "Sprachkenntnisse: Bhasa", "Sprachkenntnisse: Run Mor", "Sprachkenntnisse: Suara", "Sprachkenntnisse: Barach", "Sprachkenntnisse: Draak Huil", "Sprachkenntnisse: Duwia","Sprachkenntnisse: Latanis", "Sprachkenntnisse: Ingelesa","Sprachkenntnisse: Gerunnik", "Sprachkenntnisse: Aggara", "Schleichen", "Stehlen", "Zinken", "Angeln", "Knoten", "Schlösser knacken", "Betören", "Magiedilettant", "Astrale Hand", "Magiewissen"};
-	final String[] RELIGIONLIST = {"", "Glaube der Zwölf: Aleus","Glaube der Zwölf: Ariasa","Glaube der Zwölf: Baphos","Glaube der Zwölf: Dragana","Glaube der Zwölf: Fyrnur","Glaube der Zwölf: Goran","Glaube der Zwölf: Lynus","Glaube der Zwölf: Maradur","Glaube der Zwölf: Rohmos","Glaube der Zwölf: Rorin","Glaube der Zwölf: Thoran","Glaube der Zwölf: Vita", "Ekadevata", "Sabbadon", "Das Dunkle Auge", "Ular"};
-	final String[] STRENGTHLIST = {"", "Diplomat", "Logiker", "Optimist", "Muskulös", "Adlige Abstammung", "Akademiker", "Athletisch", "gut aussehend", "gelassen", "Makellos", "gläubig", "gerecht", "berühmt", "auserwählt"};
-	final String[] WEAKNESSLIST = {"", "Angst", "Habgier", "Sturheit", "schüchtern", "Arroganz", "Einarmig", "Einbeinig", "blind", "fettleibig", "Gesucht", "aggressiv", "stumm", "Sprachfehler", "Pazifist", "depressiv", "emotionslos", "fanatisch"};
-    final String[] HANDLIST = {"", "links", "rechts"}; 
+	final String[] RACELIST = {" ","Amazone", "Amunier", "Bergzwerg", "Dathure", "Elf", "Gnom", "Grimmtaure", "Halbelf", "Hügelzwerg", "Kobold", "Minotaur", "Nordländer", "Ork", "Taravellaner", "Scantare", "Schattenelf", "Talonier", "Trinide", "Wanure","Zentaur" };
+	final String[] ARCHETYPELIST = {" ","Magier", "Beschwörer", "Druide", "Nekromant", "Schamane", "Hexendoktor", "Arkanist", "Krieger", "Ritter", "Baphosritter", "Hüter", "Berserker", "Waffenmeister", "Duellant", "Späher", "Jäger", "Waldläufer", "Pirat", "Dieb", "Assassine", "Gaukler", "Scharlatan", "Hexenjäger", "Alchemist", "Drachenjäger", "Kleriker", "Hohepriester", "Inquisitor", "Arzt", "Barde", "Vampir", "Werwolf"};
+	final String[] CULTURELIST = {" ","Arquill", "Denquill", "Brenland", "Tarek", "Tjam-Wüste", "Wisha Küste", "Tundra", "Bergland", "Fjordland", "Trinidas", "Nebelmarschen", "Sieben Ebenen", "Kristallwüste", "Tortaja und Girada", "Roma", "Dathuria", "Elfen", "Schattenelfen", "Bergzwerge", "Hügelzwerge"};
+	final String[] LANGUAGELIST = {" ","Moiar", "Bhasa", "Run Mor", "Suara", "Barach", "Draak Huil", "Duwia", "Latanis", "Ingelesa", "Gerunnik", "Aggara"};
+	final String[] ALIGNMENTLIST = {" ", "aufopfernd", "neutral", "skrupellos"};
+	final String[] GENDERLIST = {" ", "männlich", "weiblich"};
+	final String[] ABILITYLIST = {" ", "Kochen", "Schreiben", "Rechnen", "Feuer machen", "Malen", "Klettern", "Schwimmen", "Reiten", "Erste Hilfe", "Kräuterkunde", "Schnitzen", "Nähen", "Schmieden", "Bergbau", "Giftherstellung", "Alchemie", "Kürschnern", "Astrologie", "Etikette", "Seefahrt", "Abrichten", "Religion", "Tierkunde", "Gesteinskunde", "Navigation", "Schätzen", "Überreden", "Feilschen", "Gesteinskenntnisse", "Geschichten und Legenden", "Musizieren", "Sprachkenntnisse: Bhasa", "Sprachkenntnisse: Run Mor", "Sprachkenntnisse: Suara", "Sprachkenntnisse: Barach", "Sprachkenntnisse: Draak Huil", "Sprachkenntnisse: Duwia","Sprachkenntnisse: Latanis", "Sprachkenntnisse: Ingelesa","Sprachkenntnisse: Gerunnik", "Sprachkenntnisse: Aggara", "Schleichen", "Stehlen", "Zinken", "Angeln", "Knoten", "Schlösser knacken", "Betören", "Magiedilettant", "Astrale Hand", "Magiewissen"};
+	final String[] RELIGIONLIST = {" ", "Glaube der Zwölf: Aleus","Glaube der Zwölf: Ariasa","Glaube der Zwölf: Baphos","Glaube der Zwölf: Dragana","Glaube der Zwölf: Fyrnur","Glaube der Zwölf: Goran","Glaube der Zwölf: Lynus","Glaube der Zwölf: Maradur","Glaube der Zwölf: Rohmos","Glaube der Zwölf: Rorin","Glaube der Zwölf: Thoran","Glaube der Zwölf: Vita", "Ekadevata", "Sabbadon", "Das Dunkle Auge", "Ular"};
+	final String[] STRENGTHLIST = {" ", "Diplomat", "Logiker", "Optimist", "Muskulös", "Adlige Abstammung", "Akademiker", "Athletisch", "gut aussehend", "gelassen", "Makellos", "gläubig", "gerecht", "berühmt", "auserwählt"};
+	final String[] WEAKNESSLIST = {" ", "Angst", "Habgier", "Sturheit", "schüchtern", "Arroganz", "Einarmig", "Einbeinig", "blind", "fettleibig", "Gesucht", "aggressiv", "stumm", "Sprachfehler", "Pazifist", "depressiv", "emotionslos", "fanatisch"};
+    final String[] HANDLIST = {" ", "links", "rechts"}; 
     final Spell INITSPELL = new Spell("ecki", "ecki", "pateng");
     final String LEDER = "Leder";
     final String STOFF = "Stoff";
@@ -87,10 +87,10 @@ public class CharacterSheet {
 	String Religion;
 	String[] listOfSpells = {"hallo", "hier", "hirt", "bla", "blubb", "blubb"};
 	Spell[] completeSpells = {INITSPELL, INITSPELL, INITSPELL, INITSPELL, INITSPELL, INITSPELL};
-	String[] meleeList = {"", "", "", "", "", "", "", "", "", "", ""};
-	String[] rangeList = {"", "", "" };
-	String[] armorTypeList = {"", "", ""};
-	String space = ""; //space String for any purpose
+	String[] meleeList = {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "};
+	String[] rangeList = {" ", " ", " " };
+	String[] armorTypeList = {" ", " ", " "};
+	String space = " "; //space String for any purpose
 	DefaultComboBoxModel model = new DefaultComboBoxModel(meleeList);
 	int statpoints=230;
 	
@@ -201,8 +201,6 @@ public class CharacterSheet {
 		final String NEXT = "NEXT";
 		final String PREVIOUS = "PREVIOUS";
 		final String QUIT = "QUIT";
-		final String TEXT = "<html>Herzlich Willkommen zum Charaktergenerator 3.00.<p/> Dieses Programm ist angepasst auf die Version 3.0 des Amuntalon-Regelwerkes.<p/> Dieses Programm dient nur der Ergänzung und kann das Regelwerk nicht ersetzen. <p/> Es ist deshalb angeraten, das Regelbuch griffbereit zu halten.<p/><p/>" +
-				"LICENSE: <p/> Dieses Programm wurde unter der GNU General Public License Version 3 veröffentlicht</html>";
 		final String ENDE = "<html> Sie sind glücklich nun am Ende angelangt.<p/> Um Ihren Charakterbogen zu betrachten, klicken Sie auf Anzeigen.<p/>ZUm Speichern bitte anschließend auf 'als html speichern' gehen <p/> Vielen Dank, dass Sie sich für den CharakterGenerator entschieden haben.<p/><p/>" +
 				"LICENSE: <p/> Dieses Programm wurde unter der GNU General Public License Version 3 veröffentlicht</html>";
 		
@@ -236,11 +234,6 @@ public class CharacterSheet {
 		buttons.add(quit);
 		
 		//creating individual subwindows
-		//intro: informations on program/licence
-		JPanel intro = new JPanel();
-		JLabel text = new JLabel(TEXT);
-		intro.add(text);
-		
 		//step1: name, race, etc to look
 		JPanel step1 = new JPanel(new GridBagLayout());
 		
@@ -560,7 +553,7 @@ public class CharacterSheet {
 		JPanel last = new JPanel();
 		last.add(new JLabel(ENDE));
 		
-		steps.add(intro);
+		//steps.add(intro);
 		steps.add(step1);
 		steps.add(step2);
 		steps.add(step3);
@@ -1668,7 +1661,7 @@ String.valueOf(this.Skills[3])+"</td><td>Imunsystem</td><td>"+
 String.valueOf(this.Skills[9])+"</td></tr><tr><td>Gelenkigkeit</td><td>"+
 String.valueOf(this.Skills[4])+"</td><td>Glaube</td><td>"+
 String.valueOf(this.Skills[10])+"</td></tr><tr><td>Waffenkunde</td><td>"+
-String.valueOf(this.Skills[5])+"</td><td>Glaube</td><td>"+
+String.valueOf(this.Skills[5])+"</td><td>Glück</td><td>"+
 String.valueOf(this.Skills[11])+"</td></tr></table></td><td><table border=1><tr><td>90</td><td>+5</td><td></td></tr><tr><td>80</td><td>+4</td><td></td></tr><tr><td>70</td><td>+3</td><td></td></tr><tr><td>60</td><td>+2</td><td></td></tr><tr><td>50</td><td>+0</td><td>50</td></tr><tr><td>40</td><td>-2</td><td></td></tr><tr><td>30</td><td>-3</td><td></td></tr><tr><td>20</td><td>-4</td><td></td></tr><tr><td>10</td><td>-5</td><td></td></tr></table></td><td><table border=1, cellspacing=30%><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr></table><h3>Besondere Besitztümer</h3><table border=1><tr><td>"+
 this.SpecialItems[0]+"</td><td>"+
 this.SpecialItems[1]+"</td><td>"+this.SpecialItems[2]+"</td></tr><tr><td>"+this.SpecialItems[3]+"</td><td>"+this.SpecialItems[4]+"</td><td>"+this.SpecialItems[5]+"</td></tr></table><h3>Beutel</h3><table border=1, cellspacing=200%><tr><td></td><td></td></tr></table></html>";

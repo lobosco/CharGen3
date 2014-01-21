@@ -2,6 +2,5 @@ CHANGELOG
 =========
 
 19.09.2013: minor bugfixes, including wrong calculation of overall protection value and specific abilities of guardian, warrior, hunter and bard. Changed default material of staff to hazelnut.
-
-
 17.01.2014: starting implementation of network-capabilities, executable server added
+21.01.2014: server implementation, minor bugfixes, intro screen redone (possibility to add other Versions/ add-ons)

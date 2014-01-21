@@ -435,6 +435,8 @@ public class XmlActionListener implements ActionListener {
 		charsheet.Strength= "Wolfskraft, Lynusblut, " + combo.getSelectedItem().toString();
 	}else if (cmd.equals("close")){
 		frame.dispose();
+	}else if(cmd.equals("AMUN")){
+		charsheet.setStats();
 	}
 	
 	}

@@ -111,10 +111,12 @@ public class Client extends Thread {
             			   String.valueOf(charsheet.Skills[5])+ESC+
             			   String.valueOf(charsheet.Skills[11])+ESC+
             			   charsheet.SpecialItems[0]+ESC+
-            			   charsheet.SpecialItems[1]+ESC+charsheet.SpecialItems[2]+ESC+charsheet.SpecialItems[3]+ESC+charsheet.SpecialItems[4]+ESC+charsheet.SpecialItems[5]+ESC;
+            			   charsheet.SpecialItems[1]+ESC+charsheet.SpecialItems[2]+ESC+charsheet.SpecialItems[3]+ESC+charsheet.SpecialItems[4]+ESC+charsheet.SpecialItems[5];
             	 
+            	 String[] cut = toServer.split(ESC);
             	 out.println(toServer);
                  System.out.println("Request to server: " + toServer);
+                 System.out.println("Länge: " + cut.length);
             	 
 	}
             System.out.println("Leaving client program...");

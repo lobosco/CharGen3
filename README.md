@@ -9,6 +9,7 @@ Amuntalon Character Generator Version 3.x
 Version History: 
 
 30.07.2013: Version 3.00
+21.02.2014: Version 3.01
 
 ====
 
@@ -17,6 +18,8 @@ Installation:
 This programm was developped for Java JRE 1.6 or higher.
 
 To run, simply download the file CharacterGenerator.jar and run it.
+
+If the Server Application is necessary, simply do the same for Server.jar.
 
 The source including any development-related files is contained in the folder "charactergenerator".
 
