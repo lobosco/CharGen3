@@ -6,6 +6,12 @@ Amuntalon Character Generator Version 3.x
 
 ========
 
+IMPORTANT NOTE: 
+
+Development on this sotware has been discontinued.
+
+========
+
 Version History: 
 
 30.07.2013: Version 3.00
